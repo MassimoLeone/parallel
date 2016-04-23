@@ -3,7 +3,7 @@
  * matrices and prints out matrices and the
  * multiplication result.
  * 
- * File: exercise1-1.c         Author:  Maksym Levchenko
+ * File: exercise1-1.c         Author: Maksym Levchenko
  * Date: 25.04.2016            Version: 1.0
  */
 
