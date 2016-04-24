@@ -1,14 +1,11 @@
-/* 
- * This program computes a fibonacci sequence in two different
- * approaches: iterative and recursive. It also determines the
+/*
+ * This program computes a Fibonacci sequence in two different
+ * fashions: iterative and recursive. It also determines the
  * computing time for each approach.
- * The program computes the sums for fibonacci numbers 'n' in the range
- * 35 <= n <= 45. It prints the fibonacci solutions along with the
- * determined computing times in standard output. 
- * 
- * File Name: exercise1-2.c        
+ *
+ * File Name: exercise1-2.c
  * Author: Maksym Levchenko
- * Date: 05.05.2015
+ * Date: 24.04.2016
  */
 
 #include <stdlib.h>
@@ -37,49 +34,34 @@ int main (void)
   struct Clock iter,recur;
   int i;
 
-  /* Start block for Iterative Fibonacci */
-  printf ("\x1b[1;4mIterative\x1b[0m \n");
-  
+  /* Iterative Fibonacci sequence */
+  printf ("Iterative: ");
+
   iter.startCPU = clock ();
   iter.startWall = time (NULL);
-  
-  /* computes and prints all sums in
-   * range with MIN and MAX boundaries
-   */
+
   sum = 0;
   for (i = MIN; i <= MAX; i++)
   {
     sum = sum + fibonacci_iterative (i);
   }
-  printf ("%lld \n", sum);   
-  
-  iter.endCPU   = clock ();
-  iter.endWall  = time (NULL);
-  iter.diffCPU  = iter.endCPU - iter.startCPU;
-  iter.diffWall = iter.endWall - iter.startWall;
-
+  printf ("%lld \n", sum);
   print_time (iter);
-  /* End block for Iterative Fibonacci */
-  
-  /* Start block for Recursive Fibonacci */
-  printf ("\x1b[1;4mRecursive\x1b[0m \n");
+
+  /* Recursive Fibonacci sequence */
+  printf ("Recursive: ");
   recur.startCPU  = clock ();
   recur.startWall = time (NULL);
 
   sum = 0;
-  for (i = MIN; i <= MAX; i++)
+  i = MIN;
+  while (i <= MAX)
   {
     sum = sum + fibonacci_recursive (i);
+    i++;
   }
-  printf ("%lld \n", sum);   
-
-  recur.endCPU = clock ();
-  recur.endWall = time (NULL);
-  recur.diffCPU = recur.endCPU - recur.startCPU;
-  recur.diffWall = recur.endWall - recur.startWall;
-
+  printf ("%lld \n", sum);
   print_time (recur);
-  /* End block of Recursive Fibonacci */
 
   return EXIT_SUCCESS;
 }
@@ -108,7 +90,6 @@ long long fibonacci_iterative (int n)
   for (i = 3; i <= n; i++)
   {
     next = first + second;
-
     first  = second;
     second = next;
   }
@@ -130,9 +111,15 @@ long long fibonacci_recursive (int n)
   return fibonacci_recursive (n - 1) + fibonacci_recursive (n - 2);
 }
 
-void print_time (struct Clock clck) {
+void print_time (struct Clock clck)
+{
+  clck.endCPU = clock ();
+  clck.endWall = time (NULL);
+  clck.diffCPU = clck.endCPU - clck.startCPU;
+  clck.diffWall = clck.endWall - clck.startWall;
+
+  printf ("CPU  clock: %ld sec\n", (clck.diffCPU / CLOCKS_PER_SEC));
+  printf ("Wall clock: %ld sec\n", clck.diffWall);
   printf ("\n");
-  printf ("\x1b[1mCPU  clock:\x1b[0m \t %ld sec\n", (clck.diffCPU / CLOCKS_PER_SEC));
-  printf ("\x1b[1mWall clock:\x1b[0m \t %ld sec\n", clck.diffWall);
-  printf ("\n\n");
 }
+
