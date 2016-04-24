@@ -1,14 +1,12 @@
-/* 
- * This program computes a fibonacci sequence in two different
- * approaches: iterative and recursive. It also determines the
- * computing time for each approach.
- * The program computes the sums for fibonacci numbers 'n' in the range
- * 35 <= n <= 45. It prints the fibonacci solutions along with the
- * determined computing times in standard output. 
- * 
- * File Name: exercise1-3.c
+/*
+ * This program sorts elements of an array with different algorithms.
+ * The array is initialized with a random number generator and uses
+ * the algorithms "bubblesort" and "selection sort" to sort the array.
+ * The program also measures the time needed for the sorting.
+ *
+ * File:   exercise1-3.c
  * Author: Maksym Levchenko
- * Date: 09.05.2014
+ * Date:   24.04.2016
  */
 
 #include <stdlib.h>
@@ -20,10 +18,10 @@
 
 struct Clocks
 {
-  clock_t start_CPU, 
+  clock_t start_CPU,
           end_CPU,
           total_CPU;
-  
+
   time_t  start_Wall,
           end_Wall,
           total_Wall;
@@ -42,20 +40,20 @@ int main (void)
   int rand_SL_2 [SEC_LIMIT];
 
   srand (time (NULL));
-  
+
   for (i = 0; i < FIRST_LIMIT; i++)      /* initialize array with */
-  {                                      /*   random numbers      */ 
-    rand_FL_1 [i] = rand ();         
+  {                                      /*   random numbers      */
+    rand_FL_1 [i] = rand ();
   }
 
   for (i = 0; i < FIRST_LIMIT; i++)      /* copy initialized array */
   {
     rand_FL_2 [i] = rand_FL_1 [i];
-  } 
+  }
 
   for (i = 0; i < SEC_LIMIT; i++)      /* initialize array with */
-  {                                      /*   random numbers      */ 
-    rand_SL_1 [i] = rand ();         
+  {                                      /*   random numbers      */
+    rand_SL_1 [i] = rand ();
   }
 
   for (i = 0; i < SEC_LIMIT; i++)      /* copy initialized array */
@@ -113,11 +111,11 @@ int main (void)
 void bubbleSort (int *array, int length)
 {
   int i, j;
-  for (i = 0; i < length -1; ++i) 
+  for (i = 0; i < length -1; ++i)
   {
-    for (j = 0; j < length - i - 1; ++j) 
+    for (j = 0; j < length - i - 1; ++j)
     {
-      if (array[j] > array[j + 1]) 
+      if (array[j] > array[j + 1])
       {
         int tmp = array[j];
         array[j] = array[j + 1];
@@ -132,7 +130,7 @@ void selectionSort( int *array, int length) // Anzahl und Array mit Daten
   int i, k, t, min; // i ist Kontrollvariable für die innere, k für die äußere Schleife.
                     // t ist Zwischenspeicher beim Tauschen. min merkt sich den kleinsten Wert
                     // im Teilarray.
- 
+
   for( i = 0; i < length-1; i++)
   {
     min = i;
@@ -145,4 +143,5 @@ void selectionSort( int *array, int length) // Anzahl und Array mit Daten
     array[min] = array[i];
     array[i] = t;
   }
-} 
+}
+

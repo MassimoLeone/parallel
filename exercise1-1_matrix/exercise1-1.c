@@ -3,9 +3,9 @@
  * matrices and prints out matrices and the
  * multiplication result.
  *
- * File: exercise1-1.c         
+ * File:   exercise1-1.c         
  * Author: Maksym Levchenko
- * Date: 25.04.2016
+ * Date:   25.04.2016
  */
 
 #include <stdio.h>

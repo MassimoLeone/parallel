@@ -3,9 +3,9 @@
  * fashions: iterative and recursive. It also determines the
  * computing time for each approach.
  *
- * File Name: exercise1-2.c
+ * File:   exercise1-2.c
  * Author: Maksym Levchenko
- * Date: 24.04.2016
+ * Date:   24.04.2016
  */
 
 #include <stdlib.h>
