@@ -38,7 +38,7 @@ int main (void)
   result = multiplymatrix (first, P, Q, second, R);
   printOut (result, P, R, "the multiplication result:\n");
 
-  /* fre up occupied memory */
+  /* free up occupied memory */
   freeMemory (first, P);
   freeMemory (second, Q);
   freeMemory (result, P);
