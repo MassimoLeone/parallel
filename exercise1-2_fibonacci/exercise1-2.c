@@ -1,7 +1,7 @@
 /*
  * This program computes a Fibonacci sequence in two different
  * fashions: iterative and recursive. It also determines the
- * computing time for each approach.
+ * needed time for each approach.
  *
  * File:   exercise1-2.c
  * Author: Maksym Levchenko
@@ -17,21 +17,21 @@
 #define MIN 35
 #define MAX 45
 
-struct Clock
+typedef struct
 {
   clock_t startCPU, endCPU, diffCPU;
   time_t  startWall, endWall, diffWall;
-};
+}Clock;
 
 
 long long fibonacci_iterative (int);
 long long fibonacci_recursive (int);
-void print_time (struct Clock);
+void print_time (Clock);
 
 int main (void)
 {
   long long sum;
-  struct Clock iter,recur;
+  Clock iter,recur;
   int i;
 
   /* Iterative Fibonacci sequence */
@@ -111,7 +111,7 @@ long long fibonacci_recursive (int n)
   return fibonacci_recursive (n - 1) + fibonacci_recursive (n - 2);
 }
 
-void print_time (struct Clock clck)
+void print_time (Clock clck)
 {
   clck.endCPU = clock ();
   clck.endWall = time (NULL);
