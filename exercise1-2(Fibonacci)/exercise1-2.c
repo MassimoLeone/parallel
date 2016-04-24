@@ -18,7 +18,8 @@
 #define MIN 35
 #define MAX 45
 
-struct Clock {
+struct Clock
+{
   clock_t startCPU, endCPU, diffCPU;
   time_t  startWall, endWall, diffWall;
 };
@@ -81,13 +82,15 @@ int main (void)
   return EXIT_SUCCESS;
 }
 
-long long fibonacci_iterative (int n) {
+long long fibonacci_iterative (int n)
+{
   long long first;
   long long second;
   long long next;
   int i;
 
-  if (n <= 1) {
+  if (n <= 1)
+  {
     return 0;
   }
 
@@ -95,11 +98,13 @@ long long fibonacci_iterative (int n) {
   second = F1;
   next = 0;
 
-  if (n == 2) {
+  if (n == 2)
+  {
     return second;
   }
 
-  for (i = 3; i <= n; i++) {
+  for (i = 3; i <= n; i++)
+  {
     next = first + second;
 
     first  = second;
@@ -109,11 +114,14 @@ long long fibonacci_iterative (int n) {
   return next;
 }
 
-long long fibonacci_recursive (int n) {
-  if (n == 1) {
+long long fibonacci_recursive (int n)
+{
+  if (n == 1)
+  {
     return 0;
   }
-  if (n == 2) {
+  if (n == 2)
+  {
     return 1;
   }
 
