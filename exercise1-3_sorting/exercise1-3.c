@@ -13,8 +13,8 @@
 #include <stdio.h>
 #include <time.h>
 
-#define LIMIT_50K  50
-#define LIMIT_100K 100
+#define LIMIT_50K  50000
+#define LIMIT_100K 100000
 
 typedef struct
 {
@@ -27,13 +27,17 @@ typedef struct
           total_Wall;
 }Clock;
 
+void copyArray (int*,int*,int);
+void initArrayRandom (int*, int);
 void bubbleSort(int*, int);
 void selectionSort(int*, int);
 
 int main (void)
 {
-  Clock bubble_FL, bubble_SL, selection_FL, selection_SL;
-  int i;
+  Clock bubble_FL,
+        bubble_SL,
+        selection_FL,
+        selection_SL;
   int rand_FL_1 [LIMIT_50K];
   int rand_FL_2 [LIMIT_50K];
   int rand_SL_1 [LIMIT_100K];
@@ -41,26 +45,12 @@ int main (void)
 
   srand (time (NULL));
 
-  for (i = 0; i < LIMIT_50K; i++)      /* initialize array with */
-  {                                      /*   random numbers      */
-    rand_FL_1 [i] = rand ();
-  }
+  initArrayRandom(rand_FL_1, LIMIT_50K);
+  copyArray(rand_FL_2, rand_FL_1, LIMIT_50K);
+  initArrayRandom(rand_SL_1, LIMIT_100K);
+  copyArray(rand_SL_2, rand_SL_1, LIMIT_100K);
 
-  for (i = 0; i < LIMIT_50K; i++)      /* copy initialized array */
-  {
-    rand_FL_2 [i] = rand_FL_1 [i];
-  }
-
-  for (i = 0; i < LIMIT_100K; i++)      /* initialize array with */
-  {                                      /*   random numbers      */
-    rand_SL_1 [i] = rand ();
-  }
-
-  for (i = 0; i < LIMIT_100K; i++)      /* copy initialized array */
-  {
-    rand_SL_2 [i] = rand_SL_1 [i];
-  }
-  /* FIRST LIMIT */
+  /* 50K LIMIT */
   bubble_FL.start_CPU = clock ();
   bubble_FL.start_Wall = time (NULL);
   bubbleSort (rand_FL_1, LIMIT_50K);
@@ -79,7 +69,7 @@ int main (void)
   selection_FL.total_CPU = selection_FL.end_CPU - selection_FL.start_CPU;
   selection_FL.total_Wall = selection_FL.end_Wall - selection_FL.start_Wall;
 
-  /* SECOND LIMIT */
+  /* 100K LIMIT */
   bubble_SL.start_CPU = clock ();
   bubble_SL.start_Wall = time (NULL);
   bubbleSort (rand_SL_1, LIMIT_100K);
@@ -108,7 +98,25 @@ int main (void)
   return EXIT_SUCCESS;
 }
 
-void bubbleSort (int *array, int length)
+void initArrayRandom (int* array, int length)
+{
+  int i = 0;
+  for (i = 0; i < length; i++)
+  {
+    array [i] = rand ();
+  }
+}
+
+void copyArray(int* a, int* b, int limit)
+{
+  int i;
+  for (i = 0; i < limit; i++)
+  {
+    a[i] = b[i];
+  }
+}
+
+void bubbleSort (int* array, int length)
 {
   int i, j;
   for (i = 0; i < length -1; ++i)
