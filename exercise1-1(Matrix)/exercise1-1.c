@@ -1,8 +1,8 @@
-/* 
- * This programm multiplies two randomly generated
+/*
+ * This program multiplies two randomly generated
  * matrices and prints out matrices and the
  * multiplication result.
- * 
+ *
  * File: exercise1-1.c         Author: Maksym Levchenko
  * Date: 25.04.2016            Version: 1.0
  */
@@ -15,77 +15,70 @@
 #define Q 6
 #define R 8
 
-int **initMatrix (const int rows, const int columns);
-void freeMatrix (int **Matrix, const int rows);
-int **multiplyMatrix (int **matrixFirst, const int rowsFirst,
-                      const int columnsFirst, int **matrixSecond,
-                      const int columnsSecond);
-void printMatrix(int **Matrix, const int rows, const int columns);
+int** init (int rows, int columns);
+int** multiplymatrix (int **matrixFirst, int rowsFirst, int columnsFirst,
+                      int **matrixSecond, int columnsSecond);
+void printOut(int **matrix, int rows, int columns, char* text);
+void freeMemory (int **matrix, int rows);
 
 int main (void)
 {
-  int **a = NULL;
-  int **b = NULL;
-  int **c = NULL;
+  /* master pointers */
+  int **first = NULL;
+  int **second = NULL;
+  int **result = NULL;
 
   /* initialize and fill two matrices */
-  a = initMatrix (P, Q);
-  b = initMatrix (Q, R);
+  first = init (P, Q);
+  printOut (first, P, Q, "first matrix:\n");
+  second = init (Q, R);
+  printOut (second, Q, R, "second matrix:\n");
 
-  /* multiply the two matrices */
-  c = multiplyMatrix (a, P, Q, b, R);
+  /* multiplication */
+  result = multiplymatrix (first, P, Q, second, R);
+  printOut (result, P, R, "the multiplication result:\n");
 
-  printMatrix (a, P, Q);
-  printMatrix (b, Q, R);
-  printMatrix (c, P, R);
-
-  freeMatrix (a, P);
-  freeMatrix (b, Q);
-  freeMatrix (c, P);
+  freeMemory (first, P);
+  freeMemory (second, Q);
+  freeMemory (result, P);
 
   return EXIT_SUCCESS;
 }
 
 /* initialize and fill matrix */
-int **initMatrix (const int rows, const int columns)
+int** init (int rows, int columns)
 {
   srand ((unsigned) time (NULL));
-  int **Matrix, i, j;
-  Matrix = (int **) malloc (sizeof (int *) * rows);
-  
+  int **matrix, i, j;
+  matrix = (int **) malloc (sizeof (int*) * rows);
+
   for (i = 0; i < rows; i++)
   {
-    Matrix[i] = (int *) malloc (sizeof (int) * columns);
+    matrix[i] = (int *) malloc (sizeof (int) * columns);
     for (j = 0; j < columns; j++)
-      Matrix[i][j] = rand() % (rows + columns);       
+    {
+      matrix[i][j] = rand() % (rows + columns);
+    }
   }
 
-  return Matrix;
-}
-
-void freeMatrix (int **Matrix, const int rows){
-  int i;
-
-  for (i = 0; i < rows; i++) {
-    free (Matrix[i]);
-  }
-  
-  free (Matrix);
+  return matrix;
 }
 
 /* multiply two matrices */
-int **multiplyMatrix (int **matrixFirst, const int rowsFirst,
-                      const int columnsFirst, int **matrixSecond,
-                      const int columnsSecond){
-    
+int** multiplymatrix (int **matrixFirst, int rowsFirst, int columnsFirst,
+                      int **matrixSecond, int columnsSecond)
+{
   int **result, sum, i, j, k;
   result = NULL;
-  result = initMatrix (rowsFirst, columnsSecond);
-  
+  result = init (rowsFirst, columnsSecond);
+
   sum = 0;
-  for (i = 0; i < rowsFirst; i++) {
-    for (j = 0; j < columnsSecond; j++) {
-      for (k = 0; k < columnsFirst; k++) {
+  for (i = 0; i < rowsFirst; i++)
+  {
+    for (j = 0; j < columnsSecond; j++)
+    {
+      for (k = 0; k < columnsFirst; k++)
+      {
         sum += matrixFirst[i][k] * matrixSecond[k][j];
       }
       result[i][j] = sum;
@@ -96,16 +89,32 @@ int **multiplyMatrix (int **matrixFirst, const int rowsFirst,
   return result;
 }
 
-/* print matrix for debugging reasons */
-void printMatrix (int **Matrix, const int rows, const int columns) {
+void printOut (int **matrix, int rows, int columns, char* text)
+{
+  printf ("%s", text);
   int i, j;
-  if (Matrix == NULL) return;
+  if (matrix == NULL) return;
 
-  printf ("Matrix: \n");
-  for (i = 0; i < rows; ++i) {
-    for (j = 0; j < columns; ++j) {
-      printf (" %i\t", Matrix[i][j]);
+  for (i = 0; i < rows; ++i)
+  {
+    for (j = 0; j < columns; ++j)
+    {
+      printf (" %i\t", matrix[i][j]);
     }
     printf ("\n");
   }
+  printf ("\n");
 }
+
+void freeMemory (int **matrix, int rows)
+{
+  int i;
+
+  for (i = 0; i < rows; i++)
+  {
+    free (matrix[i]);
+  }
+
+  free (matrix);
+}
+
