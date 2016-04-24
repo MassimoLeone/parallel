@@ -1,11 +1,13 @@
-/* This program computes a fibonacci sequence in two different
+/* 
+ * This program computes a fibonacci sequence in two different
  * approaches: iterative and recursive. It also determines the
  * computing time for each approach.
  * The program computes the sums for fibonacci numbers 'n' in the range
  * 35 <= n <= 45. It prints the fibonacci solutions along with the
  * determined computing times in standard output. 
  * 
- * File Name: exercise1-2.c        Author: Juergen Goebel
+ * File Name: exercise1-2.c        
+ * Author: Maksym Levchenko
  * Date: 05.05.2015
  */
 
