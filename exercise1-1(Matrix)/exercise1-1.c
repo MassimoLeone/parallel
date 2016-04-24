@@ -23,7 +23,7 @@ void freeMemory (int **matrix, int rows);
 
 int main (void)
 {
-  /* master pointers */
+  /* master pointers (double pointers) */
   int **first = NULL;
   int **second = NULL;
   int **result = NULL;
