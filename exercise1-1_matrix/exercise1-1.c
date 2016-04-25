@@ -17,10 +17,9 @@
 #define R 8
 
 int** init (int rows, int columns);
-int** multiplymatrix (int **matrixFirst, int rowsFirst, int columnsFirst,
-                      int **matrixSecond, int columnsSecond);
-void printOut(int **matrix, int rows, int columns, char* text);
-void freeMemory (int **matrix, int rows);
+int** multiplymatrix (int**, int, int, int**, int);
+void printOut(int**, int, int, char*);
+void freeMemory (int**, int);
 
 int main (void)
 {
