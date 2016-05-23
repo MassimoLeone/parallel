@@ -21,7 +21,7 @@ typedef struct
 {
   clock_t startCPU, endCPU, diffCPU;
   time_t  startWall, endWall, diffWall;
-}Clock;
+} Clock;
 
 
 long long fibonacci_iterative (int);
@@ -75,19 +75,14 @@ long long fibonacci_iterative (int n)
 
   if (n <= 1)
   {
-    return 0;
+    return n;
   }
 
   first = F0;
   second = F1;
   next = 0;
 
-  if (n == 2)
-  {
-    return second;
-  }
-
-  for (i = 3; i <= n; i++)
+  for (i = 2; i <= n; i++)
   {
     next = first + second;
     first  = second;
@@ -99,13 +94,9 @@ long long fibonacci_iterative (int n)
 
 long long fibonacci_recursive (int n)
 {
-  if (n == 1)
+  if (n <= 1)
   {
-    return 0;
-  }
-  if (n == 2)
-  {
-    return 1;
+    return n;
   }
 
   return fibonacci_recursive (n - 1) + fibonacci_recursive (n - 2);

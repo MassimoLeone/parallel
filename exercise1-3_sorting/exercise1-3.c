@@ -29,11 +29,16 @@ typedef struct
 
 void copyArray (int*,int*,int);
 void initArrayRandom (int*, int);
-void bubbleSort(int*, int);
-void selectionSort(int*, int);
+void bubbleSort (int*, int);
+void selectionSort (int*, int);
+int isAscSorted (int*, int);
 
 int main (void)
 {
+//  int test [10] = {1,2,3,4,5,6,7,8,9,10}; TODO
+//  int response;
+//  response = isAscSorted(test,10);
+//  printf("response: %d", response);
   Clock bubble_50K,
         bubble_100K,
         selection_50K,
@@ -45,12 +50,12 @@ int main (void)
 
   srand (time (NULL));
 
-  initArrayRandom(rand_50K_1, LIMIT_50K);
-  copyArray(rand_50K_2, rand_50K_1, LIMIT_50K);
-  initArrayRandom(rand_100K_1, LIMIT_100K);
-  copyArray(rand_100K_2, rand_100K_1, LIMIT_100K);
+  initArrayRandom (rand_50K_1, LIMIT_50K);
+  copyArray (rand_50K_2, rand_50K_1, LIMIT_50K);
+  initArrayRandom (rand_100K_1, LIMIT_100K);
+  copyArray (rand_100K_2, rand_100K_1, LIMIT_100K);
 
-  printf ("Algorithm \t array size \t CPU time \t elapsed time\n");
+  printf ("Algorithm \t Array size \t CPU time \t Elapsed time\n");
   printf ("\t \t \t \t (in seconds) \t (in seconds)\n");
 
   /* 50K LIMIT */
@@ -131,21 +136,23 @@ void bubbleSort (int* array, int length)
       }
     }
   }
+
+  isAscSorted(array, length);
 }
 
-void selectionSort( int *array, int length)
+void selectionSort (int *array, int length)
 {
   int outside,
       inside,
       tmp,
       min;
 
-  for(outside = 0; outside < length-1; outside++)
+  for (outside = 0; outside < length-1; outside++)
   {
     min = outside;
-    for( inside = outside+1; inside < length; inside++)
+    for ( inside = outside+1; inside < length; inside++)
     {
-      if(array[inside] < array[min])
+      if (array[inside] < array[min])
       {
         min = inside;
       }
@@ -154,5 +161,29 @@ void selectionSort( int *array, int length)
     array[min] = array[outside];
     array[outside] = tmp;
   }
+
+  isAscSorted(array, length);
 }
+
+/**
+ * @return 1 if array is ascending sorted, 0 if not.
+ */
+int isAscSorted (int *array, int length)
+{
+  int i;
+
+  for (i = 0; i < (length-1); i++)
+  {
+    if (array[i] > array[i+1])
+    {
+    	printf("Array is not sorted.");
+    	return 0;
+    }
+  }
+
+  return 1;
+}
+
+
+
 

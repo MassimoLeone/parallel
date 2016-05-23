@@ -18,7 +18,7 @@
 
 int** init (int rows, int columns);
 int** multiplymatrix (int**, int, int, int**, int);
-void printOut(int**, int, int, char*);
+void printOut (int**, int, int, char*);
 void freeMemory (int**, int);
 
 int main (void)
