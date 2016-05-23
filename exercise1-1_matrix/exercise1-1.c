@@ -1,7 +1,8 @@
 /*
  * This program multiplies two randomly generated
  * matrices and prints out matrices and the
- * multiplication result.
+ * multiplication result. The program multiplies
+ * two matrices a[P][Q] and b[Q][R].
  *
  * File:   exercise1-1.c         
  * Author: Maksym Levchenko
@@ -12,14 +13,21 @@
 #include <stdlib.h>
 #include <time.h>
 
-#define P 4
-#define Q 6
-#define R 8
+#define P 1024
+#define Q 1024
+#define R 1024
+
+typedef struct
+{
+  clock_t startCPU, endCPU, diffCPU;
+  time_t  startWall, endWall, diffWall;
+} Clock;
 
 int** init (int rows, int columns);
 int** multiplymatrix (int**, int, int, int**, int);
 void printOut (int**, int, int, char*);
 void freeMemory (int**, int);
+void print_time (Clock);
 
 int main (void)
 {
@@ -27,6 +35,10 @@ int main (void)
   int **first = NULL;
   int **second = NULL;
   int **result = NULL;
+  Clock clck;
+
+  clck.startCPU = clock ();
+  clck.startWall = time (NULL);
 
   /* initialize and fill two matrices */
   first = init (P, Q);
@@ -42,6 +54,8 @@ int main (void)
   freeMemory (first, P);
   freeMemory (second, Q);
   freeMemory (result, P);
+
+  print_time(clck);
 
   return EXIT_SUCCESS;
 }
@@ -92,6 +106,11 @@ int** multiplymatrix (int **matrixFirst, int rowsFirst, int columnsFirst,
 
 void printOut (int **matrix, int rows, int columns, char* text)
 {
+  if(Q > 10)
+  {
+	  return;
+  }
+
   printf ("%s", text);
   int i, j;
   if (matrix == NULL) return;
@@ -117,5 +136,17 @@ void freeMemory (int **matrix, int rows)
   }
 
   free (matrix);
+}
+
+void print_time (Clock clck)
+{
+  clck.endCPU = clock ();
+  clck.endWall = time (NULL);
+  clck.diffCPU = clck.endCPU - clck.startCPU;
+  clck.diffWall = clck.endWall - clck.startWall;
+
+  printf ("CPU  clock: %ld sec\n", (clck.diffCPU / CLOCKS_PER_SEC));
+  printf ("Wall clock: %ld sec\n", clck.diffWall);
+  printf ("\n");
 }
 
